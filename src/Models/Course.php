@@ -13,7 +13,6 @@ class Course extends Model {
 
     public function __construct() {
         parent::__construct();
-        echo "Course model instantiated.<br>";
     }
 
     /**
@@ -22,7 +21,6 @@ class Course extends Model {
      * @return array
      */
     public function all() {
-        echo "Getting all courses.<br>";
         $stmt = $this->getConnection()->query("SELECT * FROM courses");
         return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
     }
@@ -34,7 +32,6 @@ class Course extends Model {
      * @return Course|null
      */
     public function find($id) {
-        echo "Finding course by ID: $id<br>";
         $stmt = $this->getConnection()->prepare("SELECT * FROM courses WHERE id = :id");
         $stmt->execute(['id' => $id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
@@ -46,7 +43,6 @@ class Course extends Model {
      */
     public function save() {
         if ($this->id) {
-            echo "Updating course ID: $this->id<br>";
             $stmt = $this->getConnection()->prepare("UPDATE courses SET name = :name, start_date = :start_date, end_date = :end_date, status = :status WHERE id = :id");
             $stmt->execute([
                 'id' => $this->id,
@@ -56,7 +52,6 @@ class Course extends Model {
                 'status' => $this->status
             ]);
         } else {
-            echo "Creating new course<br>";
             $stmt = $this->getConnection()->prepare("INSERT INTO courses (name, start_date, end_date, status) VALUES (:name, :start_date, :end_date, :status)");
             $stmt->execute([
                 'name' => $this->name,
@@ -72,7 +67,6 @@ class Course extends Model {
      * Delete the current course.
      */
     public function delete() {
-        echo "Deleting course ID: $this->id<br>";
         $stmt = $this->getConnection()->prepare("DELETE FROM courses WHERE id = :id");
         $stmt->execute(['id' => $this->id]);
     }

@@ -14,14 +14,11 @@ class Auth {
      * @return bool
      */
     public static function login($username, $password) {
-        echo "Attempting to login user: $username<br>";
         $user = (new User())->findByUsername($username);
         if ($user && password_verify($password, $user->password)) {
             $_SESSION['user_id'] = $user->id;
-            echo "Login successful for user: $username<br>";
             return true;
         }
-        echo "Login failed for user: $username<br>";
         return false;
     }
 
@@ -31,7 +28,6 @@ class Auth {
     public static function logout() {
         unset($_SESSION['user_id']);
         session_destroy();
-        echo "User logged out.<br>";
     }
 
     /**

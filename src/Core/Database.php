@@ -13,12 +13,10 @@ class Database {
         $dotenv->load();
 
         $dsn = $_ENV['DB_CONNECTION'] . ':' . $_ENV['DB_DATABASE'];
-        echo "DSN: $dsn<br>";
 
         try {
             $this->connection = new PDO($dsn);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Database connection established.<br>";
         } catch (PDOException $e) {
             echo 'Connection failed: ' . $e->getMessage() . '<br>';
         }
