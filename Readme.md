@@ -9,7 +9,6 @@ The Swiftqueue School of High Tech is looking for a better way to manage the cou
 3. Set up your environment variables in a `.env` file (see `.env.example` for reference).
 4. Create the database directory and file:
     ```sh
-    mkdir -p database
     touch database/database.sqlite
     ```
 5. Run the SQL script in `src/migrations/schema.sql` to create the necessary tables:
