@@ -22,7 +22,9 @@ class User {
         $stmt = $db->prepare("SELECT * FROM users WHERE username = :username");
         $stmt->execute(['username' => $username]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
-        return $stmt->fetch();
+        $user = $stmt->fetch();
+        echo "User found: " . ($user ? $user->username : 'none') . "<br>";
+        return $user;
     }
 
     /**
@@ -36,7 +38,9 @@ class User {
         $stmt = $db->prepare("SELECT * FROM users WHERE id = :id");
         $stmt->execute(['id' => $id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
-        return $stmt->fetch();
+        $user = $stmt->fetch();
+        echo "User found by ID: " . ($user ? $user->username : 'none') . "<br>";
+        return $user;
     }
 }
 ?>
