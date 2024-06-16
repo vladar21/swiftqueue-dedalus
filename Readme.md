@@ -7,16 +7,27 @@ The Swiftqueue School of High Tech is looking for a better way to manage the cou
 1. Clone the repository.
 2. Run `composer install` to install dependencies.
 3. Set up your environment variables in a `.env` file (see `.env.example` for reference).
-4. Create the database and update the `.env` file with your database credentials.
-5. Run the SQL script in `config/schema.sql` to create the necessary tables.
-
+4. Create the database directory and file:
+    ```sh
+    mkdir -p database
+    touch database/database.sqlite
+    ```
+5. Run the SQL script in `src/migrations/schema.sql` to create the necessary tables:
+    ```sh
+    sqlite3 database/database.sqlite < src/migrations/schema.sql
+    ```
+6. Seed the database with initial data:
+    ```sh
+    php src/fixtures/users.php
+    php src/fixtures/courses.php
+    ```
 ## Directory Structure
 - `src/` - Contains the source code (models, controllers, core classes for routing, request handling, database connection, and authentication).
 - `public/` - Contains the public files (index.php, assets).
 - `config/` - Contains configuration files.
 - `views/` - Contains the view templates.
 
-  ```bash
+  ```sh
   swiftqueue-dev-test/
   ├── public/
   │   ├── index.php               # Entry point of the application, initializes the app
@@ -46,7 +57,11 @@ The Swiftqueue School of High Tech is looking for a better way to manage the cou
   │   ├── routes.php              # Defines the application routes and their middlewares
   ├── config/
   │   ├── config.php              # General configuration file (not used with .env in this case)
-  │   ├── schema.sql              # SQL script to initialize the database schema
+  ├── migrations/             # Directory for database migration scripts
+  │   ├── schema.sql          # SQL script to initialize the database schema
+  ├── fixtures/               # Directory for fixtures
+  │   ├── users.php           # Fixture script to populate users table
+  │   ├── courses.php         # Fixture script to populate courses table
   ├── views/
   │   ├── layouts/
   │       ├── main.php            # Main layout for the application
