@@ -3,6 +3,14 @@
 ## Introduction
 The Swiftqueue School of High Tech is looking for a better way to manage the courses they can provide to their students; they would like to create an online solution for managing these resources more efficiently.
 
+## Technologies Used
+
+- Backend: Native PHP 7.4
+- Frontend: Tailwind CSS
+- Database: SQLite
+- Composer for dependency management
+- PSR-2, PSR-4 coding standards
+
 ## Project Setup
 1. Clone the repository.
 2. Run `composer install` to install dependencies.
@@ -19,73 +27,66 @@ The Swiftqueue School of High Tech is looking for a better way to manage the cou
     ```sh
     php src/fixtures/users.php
     php src/fixtures/courses.php
+    php src/fixtures/user_courses.php
     ```
 ## Directory Structure
 
   ```sh
-  swiftqueue-dev-test/
-  ├── public/
-  │   ├── index.php               # Entry point of the application, initializes the app
-  │   ├── assets/                 # Directory for static assets
-  │       ├── js/
-  │           ├── app.js          # Custom JavaScript file
-  │       ├── css/
-  │           ├── styles.css      # Custom CSS file
-  ├── src/
-  │   ├── Controllers/
-  │       ├── CourseController.php # Controller for handling course-related requests
-  │       ├── AuthController.php   # Controller for handling authentication requests
-  │   ├── Models/
-  │       ├── Course.php          # Model representing the Course entity
-  │       ├── User.php            # Model representing the User entity
-  │   ├── Core/
-  │       ├── Router.php          # Handles routing of the application
-  │       ├── Request.php         # Handles HTTP request data
-  │       ├── Response.php        # Handles HTTP response data
-  │       ├── Database.php        # Manages the connection to the database
-  │       ├── Auth.php            # Handles user authentication
-  │       ├── Config.php          # Handles application configuration
-  │       ├── View.php            # Handles rendering of views
-  │   ├── Policies/
-  │       ├── AuthPolicy.php      # Authorization checks for authentication
-  │       ├── CoursePolicy.php    # Authorization checks for course actions
-  │   ├── routes.php              # Defines the application routes and their middlewares
-  ├── config/
-  │   ├── config.php              # General configuration file (not used with .env in this case)
-  ├── migrations/             # Directory for database migration scripts
-  │   ├── schema.sql          # SQL script to initialize the database schema
-  ├── fixtures/               # Directory for fixtures
-  │   ├── users.php           # Fixture script to populate users table
-  │   ├── courses.php         # Fixture script to populate courses table
-  ├── views/
-  │   ├── layouts/
-  │       ├── main.php            # Main layout for the application
-  │   ├── courses/
-  │       ├── index.php           # View for listing courses
-  │       ├── create.php          # View for creating a new course
-  │       ├── edit.php            # View for editing an existing course
-  │   ├── auth/
-  │       ├── login.php           # View for user login
-  ├── database/
-  │   ├── database.sqlite         # SQLite database file (created manually)
-  ├── .env                        # Environment variables configuration
-  ├── .env.example                # Example environment variables configuration
-  ├── composer.json               # Composer dependencies and autoload configuration
-  ├── README.md                   # Project documentation and setup instructions
+   project-root/
+   |-- public/
+   |   |-- index.php             # Entry point for the application
+   |
+   |-- src/
+   |   |-- Core/
+   |   |   |-- Database.php      # Database connection management
+   |   |   |-- Request.php       # Request handling
+   |   |   |-- Response.php      # Response handling
+   |   |   |-- Router.php        # Routing management
+   |   |   |-- Auth.php          # Authentication handling
+   |-- Controllers/
+   |   |   |-- AuthController.php       # Controller for authentication
+   |   |   |-- BaseController.php       # Base controller for shared functionality
+   |   |   |-- UserCourseController.php # Controller for user-specific courses
+   |-- Models/
+   |   |   |-- Course.php        # Model for courses
+   |   |   |-- UserCourse.php    # Model for user-specific courses
+   |   |   |-- User.php          # Model for users
+   |   |   |-- Model.php         # Base model for shared functionality
+   |-- Policies/
+   |   |   |-- AuthPolicy.php    # Policy for authentication
+   |   |   |-- CoursePolicy.php  # Policy for courses
+   |
+   |-- views/
+   |   |-- user_courses/
+   |   |   |-- index.php         # View for listing user courses
+   |   |   |-- create.php        # View for creating a new user course
+   |   |   |-- edit.php          # View for editing a user course
+   |   |-- user_courses/
+   |   |   |-- index.php         # View for listing all courses for auth user
+   |   |   |-- create.php        # View for creating a new course for auth user
+   |   |   |-- edit.php          # View for editing a course for auth user
+   |   |-- layouts/
+   |   |   |-- main.php          # Main layout view
+   |
+   |-- database/
+   |   |-- database.sqlite       # SQLite database file
+   |
+   |-- src/migrations/
+   |   |-- schema.sql            # SQL script for database schema
+   |
+   |-- src/fixtures/
+   |   |-- users.php             # Script for seeding users table
+   |   |-- courses.php           # Script for seeding courses table
+   |   |-- user_courses.php      # Script for seeding user_courses table
+   |
+   |-- .env                      # Environment variables
+   |-- composer.json             # Composer configuration
   ```
 
 ## Usage
 - Visit the `/login` URL to log in.
-- Visit the `/courses` URL to see the list of courses (after logging in).
-- Use the form on the `/courses/create` page to add a new course (admin only).
-- Use the edit and delete buttons on the courses list to manage courses (admin only).
+- Visit the `/logout` URL to logout
+- Visit the `/user_courses` URL to see the list of courses (after logging in).
+- Use the form on the `/users_courses/create` page to add a new course (student only).
+- Use the edit and delete buttons on the courses list to manage courses (student only).
 
-## Documentation
-- Documentation is generated automatically from the docstrings in the source code.
-- Run `phpDocumentor` to generate the documentation.
-
-## SOLID Principles and Polymorphism
-- The `Course` and `User` models follow the Single Responsibility Principle by handling only the data-related operations.
-- The `CourseController` and `AuthController` use Dependency Injection to follow the Dependency Inversion Principle.
-- Polymorphism is applied in the controllers by using the same method names (`create`, `edit`, `delete`, `login`, `logout`) to handle different HTTP methods and operations.
-- Authorization checks are handled by request policies to adhere to the Open/Closed Principle.

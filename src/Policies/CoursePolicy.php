@@ -68,7 +68,7 @@ class CoursePolicy {
      */
     private static function isAuthorized(Request $request, array $roles) {
         if (!in_array(Auth::role(), $roles)) {
-            $request->redirect('/courses');
+            $request->redirect('/user_courses');
         }
     }
 
@@ -80,7 +80,7 @@ class CoursePolicy {
     private static function isOwner(Request $request) {
         $userCourse = UserCourse::find($request->getParam('id'));
         if ($userCourse->user_id !== Auth::user()->id) {
-            $request->redirect('/courses');
+            $request->redirect('/user_courses');
         }
     }
 }

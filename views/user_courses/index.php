@@ -19,7 +19,7 @@
                 <td class="py-2 px-4 border-b border-gray-200">
                     <a href="/user_courses/edit?id=<?php echo $course->id; ?>" class="bg-yellow-500 hover:bg-yellow-700
                     text-white font-bold py-1 px-3 rounded">Edit</a>
-                    <form method="post" action="/user_courses/delete" class="inline-block">
+                    <form method="post" action="/user_courses/delete?id=<?php echo $course->id; ?>" class="inline-block">
                         <input type="hidden" name="id" value="<?php echo $course->id; ?>">
                         <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">Delete</button>
                     </form>
