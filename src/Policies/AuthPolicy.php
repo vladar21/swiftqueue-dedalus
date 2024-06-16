@@ -11,5 +11,14 @@ class AuthPolicy {
             $request->redirect('/login');
         }
     }
+
+    public static function login(Request $request) {
+        $body = $request->getBody();
+        $username = $body['username'] ?? null;
+        $password = $body['password'] ?? null;
+        if (!Auth::login($username, $password)) {
+            $request->redirect('/login?error=Invalid credentials');
+        }
+    }
 }
 ?>

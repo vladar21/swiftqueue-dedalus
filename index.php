@@ -1,11 +1,10 @@
 <?php
 session_start();
 
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 use App\Core\Request;
 use App\Core\Response;
-use App\Core\Router;
 use App\Core\Config;
 
 // Load configuration
@@ -15,13 +14,8 @@ $config = Config::getInstance();
 $request = new Request();
 $response = new Response();
 
-// Create Router instance
-$router = new Router();
-
-// Load routes
-require_once '../src/routes.php';
-
-// Resolve the request
+// Load and resolve routes
+$router = require_once __DIR__ . '/src/routes.php';
 $router->resolve($request, $response);
 
 // Enable error reporting based on environment
