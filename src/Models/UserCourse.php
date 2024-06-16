@@ -15,7 +15,6 @@ class UserCourse extends Model {
 
     public function __construct() {
         parent::__construct();
-        echo "UserCourse model instantiated.<br>";
     }
 
     /**
@@ -25,7 +24,7 @@ class UserCourse extends Model {
      * @return array
      */
     public function allForUser($user_id) {
-        echo "Getting all courses for user: $user_id<br>";
+
         $stmt = $this->getConnection()->prepare("SELECT uc.*, c.status FROM user_courses uc JOIN courses c ON uc.course_id = c.id WHERE uc.user_id = :user_id");
         $stmt->execute(['user_id' => $user_id]);
         return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
@@ -38,7 +37,6 @@ class UserCourse extends Model {
      * @return UserCourse|null
      */
     public function find($id) {
-        echo "Finding user course by ID: $id<br>";
         $stmt = $this->getConnection()->prepare("SELECT uc.*, c.status FROM user_courses uc JOIN courses c ON uc.course_id = c.id WHERE uc.id = :id");
         $stmt->execute(['id' => $id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
@@ -50,7 +48,6 @@ class UserCourse extends Model {
      */
     public function save() {
         if ($this->id) {
-            echo "Updating user course ID: $this->id<br>";
             $stmt = $this->getConnection()->prepare("UPDATE user_courses SET course_id = :course_id, name = :name, start_date = :start_date, end_date = :end_date WHERE id = :id");
             $stmt->execute([
                 'course_id' => $this->course_id,
@@ -60,7 +57,6 @@ class UserCourse extends Model {
                 'id' => $this->id
             ]);
         } else {
-            echo "Creating new user course<br>";
             $stmt = $this->getConnection()->prepare("INSERT INTO user_courses (user_id, course_id, name, start_date, end_date) VALUES (:user_id, :course_id, :name, :start_date, :end_date)");
             $stmt->execute([
                 'user_id' => $this->user_id,
@@ -77,7 +73,6 @@ class UserCourse extends Model {
      * Delete the current user course.
      */
     public function delete() {
-        echo "Deleting user course ID: $this->id<br>";
         $stmt = $this->getConnection()->prepare("DELETE FROM user_courses WHERE id = :id");
         $stmt->execute(['id' => $this->id]);
     }
