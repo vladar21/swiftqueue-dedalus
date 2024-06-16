@@ -29,6 +29,17 @@ class User {
     }
 
     /**
+     * Get all users.
+     *
+     * @return array
+     */
+    public static function all() {
+        $db = (new Database())->getConnection();
+        $stmt = $db->query("SELECT * FROM users");
+        return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
+    }
+
+    /**
      * Find a user by ID.
      *
      * @param int $id

@@ -1,7 +1,7 @@
 <?php $title = 'Edit Course'; ?>
 
 <h1>Edit Course</h1>
-<form method="post" action="/courses/edit?id=<?php echo $course->id; ?>">
+<form method="post" action="/user_courses/edit?id=<?php echo $course->id; ?>">
     <div>
         <label for="name">Name</label>
         <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($course->name); ?>" required>
@@ -25,4 +25,4 @@
         <button type="submit">Update</button>
     </div>
 </form>
-<a href="/courses">Back to Courses</a>
+<a href="/user_courses">Back to Courses</a>

@@ -1,7 +1,15 @@
 <?php $title = 'Create Course'; ?>
 
 <h1>Create Course</h1>
-<form method="post" action="/courses/create">
+<form method="post" action="/user_courses/create">
+    <div>
+        <label for="course_id">Template Course</label>
+        <select name="course_id" id="course_id" required>
+            <?php foreach ($courses as $course): ?>
+                <option value="<?php echo $course->id; ?>"><?php echo htmlspecialchars($course->name); ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
     <div>
         <label for="name">Name</label>
         <input type="text" name="name" id="name" required>
@@ -25,4 +33,4 @@
         <button type="submit">Create</button>
     </div>
 </form>
-<a href="/courses">Back to Courses</a>
+<a href="/user_courses">Back to Courses</a>

@@ -1,6 +1,6 @@
 <?php
 
-use App\Controllers\CourseController;
+use App\Controllers\UserCourseController;
 use App\Controllers\AuthController;
 use App\Core\Router;
 use App\Core\Request;
@@ -34,35 +34,35 @@ $router->get('/logout', function(Request $request, Response $response) {
     (new AuthController())->logout($request, $response);
 });
 
-// Course routes with policies
-$router->get('/courses', function (Request $request, Response $response) {
+// User courses routes with policies
+$router->get('/user_courses', function (Request $request, Response $response) {
     AuthPolicy::view($request);
-    (new CourseController())->index($request, $response);
+    (new UserCourseController())->index($request, $response);
 });
-$router->get('/courses/create', function (Request $request, Response $response) {
-    AuthPolicy::view($request);
-    CoursePolicy::create($request);
-    (new CourseController())->create($request, $response);
-});
-$router->post('/courses/create', function (Request $request, Response $response) {
+$router->get('/user_courses/create', function (Request $request, Response $response) {
     AuthPolicy::view($request);
     CoursePolicy::create($request);
-    (new CourseController())->create($request, $response);
+    (new UserCourseController())->create($request, $response);
 });
-$router->get('/courses/edit', function (Request $request, Response $response) {
+$router->post('/user_courses/create', function (Request $request, Response $response) {
+    AuthPolicy::view($request);
+    CoursePolicy::create($request);
+    (new UserCourseController())->create($request, $response);
+});
+$router->get('/user_courses/edit', function (Request $request, Response $response) {
     AuthPolicy::view($request);
     CoursePolicy::edit($request);
-    (new CourseController())->edit($request, $response);
+    (new UserCourseController())->edit($request, $response);
 });
-$router->post('/courses/edit', function (Request $request, Response $response) {
+$router->post('/user_courses/edit', function (Request $request, Response $response) {
     AuthPolicy::view($request);
     CoursePolicy::edit($request);
-    (new CourseController())->edit($request, $response);
+    (new UserCourseController())->edit($request, $response);
 });
-$router->post('/courses/delete', function (Request $request, Response $response) {
+$router->post('/user_courses/delete', function (Request $request, Response $response) {
     AuthPolicy::view($request);
     CoursePolicy::delete($request);
-    (new CourseController())->delete($request, $response);
+    (new UserCourseController())->delete($request, $response);
 });
 
 // Fallback route

@@ -10,7 +10,7 @@ class AuthController {
 
     public function login(Request $request, Response $response) {
         if ($request->isPost()) {
-            $response->redirect('/courses');
+            $response->redirect('/user_courses');
         } else {
             $error = $request->getParam('error');
             $response->view('auth/login', ['error' => $error]);

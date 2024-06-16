@@ -26,7 +26,7 @@ class AuthPolicy {
         if (!Auth::check()) {
             $response->redirect('/login');
         } else {
-            $response->redirect('/courses');
+            $response->redirect('/user_courses');
         }
     }
 }
