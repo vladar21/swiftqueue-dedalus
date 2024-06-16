@@ -3,18 +3,6 @@
 <h1>Edit Course</h1>
 <form method="post" action="/user_courses/edit?id=<?php echo $course->id; ?>">
     <div>
-        <label for="course_id">Template Course</label>
-        <select name="course_id" id="course_id" required>
-            <?php foreach ($courses as $c): ?>
-                <option value="<?php echo $c->id; ?>" <?php ($c->id == $course->id ? echo "selected" : echo '') ;?>
-                ><?php
-                    echo
-                    htmlspecialchars
-                    ($c->name); ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-    <div>
         <label for="name">Name</label>
         <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($course->name); ?>" required>
     </div>

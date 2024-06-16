@@ -6,13 +6,14 @@
         <label for="course_id">Template Course</label>
         <select name="course_id" id="course_id" required>
             <?php foreach ($courses as $course): ?>
+                <option selected>Select the course</option>
                 <option value="<?php echo $course->id; ?>"><?php echo htmlspecialchars($course->name); ?></option>
             <?php endforeach; ?>
         </select>
     </div>
     <div>
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" value="1" required>
+        <input type="text" name="name" id="name" required>
     </div>
     <div>
         <label for="start_date">Start Date</label>
