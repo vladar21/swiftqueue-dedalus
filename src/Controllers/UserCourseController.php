@@ -8,7 +8,7 @@ use App\Core\Response;
 use App\Models\UserCourse;
 use App\Models\Course;
 
-class UserCourseController {
+class UserCourseController extends BaseController {
 
     /**
      * Display the list of user courses.

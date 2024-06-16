@@ -5,6 +5,11 @@ namespace App\Core;
 class Router {
     private $routes = [];
     private $fallback;
+    private $db;
+
+    public function setDbConnection($db) {
+        $this->db = $db;
+    }
 
     public function get($path, $callback) {
         $this->routes['GET'][$path] = $callback;
@@ -34,6 +39,10 @@ class Router {
         }
 
         call_user_func($callback, $request, $response);
+    }
+
+    public function getDbConnection() {
+        return $this->db;
     }
 }
 ?>

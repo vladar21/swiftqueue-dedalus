@@ -6,7 +6,7 @@ use App\Core\Request;
 use App\Core\Response;
 use App\Models\Course;
 
-class CourseController {
+class CourseController extends BaseController {
 
     /**
      * Display the list of courses.

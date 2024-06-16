@@ -6,6 +6,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use App\Core\Request;
 use App\Core\Response;
 use App\Core\Config;
+use App\Core\Database;
 
 echo "Index file loaded.<br>";
 
@@ -18,8 +19,13 @@ $request = new Request();
 $response = new Response();
 echo "Request and Response objects created.<br>";
 
+// Create database connection
+$db = (new Database())->getConnection();
+echo "Database connection created.<br>";
+
 // Load and resolve routes
 $router = require_once __DIR__ . '/../src/routes.php';
+$router->setDbConnection($db);  // Передаем соединение с БД в маршрутизатор
 $router->resolve($request, $response);
 echo "Routes resolved.<br>";
 

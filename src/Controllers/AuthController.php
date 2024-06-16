@@ -6,7 +6,7 @@ use App\Core\Request;
 use App\Core\Response;
 use App\Core\Auth;
 
-class AuthController {
+class AuthController extends BaseController {
 
     public function login(Request $request, Response $response) {
         if ($request->isPost()) {
