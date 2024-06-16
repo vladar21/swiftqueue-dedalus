@@ -18,31 +18,34 @@ class CoursePolicy {
     }
 
     /**
-     * Check if the user can create a user course.
+     * Check if the user can create a course.
      *
      * @param Request $request
      */
     public static function create(Request $request) {
         self::isAuthenticated($request);
+        self::isAuthorized($request, ['student']);
     }
 
     /**
-     * Check if the user can edit a user course.
+     * Check if the user can edit a course.
      *
      * @param Request $request
      */
     public static function edit(Request $request) {
         self::isAuthenticated($request);
+        self::isAuthorized($request, ['student']);
         self::isOwner($request);
     }
 
     /**
-     * Check if the user can delete a user course.
+     * Check if the user can delete a course.
      *
      * @param Request $request
      */
     public static function delete(Request $request) {
         self::isAuthenticated($request);
+        self::isAuthorized($request, ['student']);
         self::isOwner($request);
     }
 
@@ -58,15 +61,26 @@ class CoursePolicy {
     }
 
     /**
-     * Check if the authenticated user is the owner of the user course.
+     * Check if the user has the necessary role.
+     *
+     * @param Request $request
+     * @param array $roles
+     */
+    private static function isAuthorized(Request $request, array $roles) {
+        if (!in_array(Auth::role(), $roles)) {
+            $request->redirect('/courses');
+        }
+    }
+
+    /**
+     * Check if the user is the owner of the course.
      *
      * @param Request $request
      */
     private static function isOwner(Request $request) {
-        $user_course_id = $request->getParam('id') ?? $request->getBody()['id'];
-        $user_course = UserCourse::find($user_course_id);
-        if ($user_course && $user_course->user_id !== Auth::user()->id) {
-            $request->redirect('/user_courses');
+        $userCourse = UserCourse::find($request->getParam('id'));
+        if ($userCourse->user_id !== Auth::user()->id) {
+            $request->redirect('/courses');
         }
     }
 }

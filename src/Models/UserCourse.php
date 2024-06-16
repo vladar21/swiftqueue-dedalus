@@ -11,7 +11,6 @@ class UserCourse extends Model {
     public $name;
     public $start_date;
     public $end_date;
-    public $status;
 
     public function __construct() {
         parent::__construct();
@@ -23,9 +22,8 @@ class UserCourse extends Model {
      * @param int $user_id
      * @return array
      */
-    public function allForUser($user_id) {
-
-        $stmt = $this->getConnection()->prepare("SELECT uc.*, c.status FROM user_courses uc JOIN courses c ON uc.course_id = c.id WHERE uc.user_id = :user_id");
+    public static function allForUser($user_id) {
+        $stmt = self::getConnection()->prepare("SELECT uc.*, c.status FROM user_courses uc JOIN courses c ON uc.course_id = c.id WHERE uc.user_id = :user_id");
         $stmt->execute(['user_id' => $user_id]);
         return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
     }
@@ -36,28 +34,28 @@ class UserCourse extends Model {
      * @param int $id
      * @return UserCourse|null
      */
-    public function find($id) {
-        $stmt = $this->getConnection()->prepare("SELECT uc.*, c.status FROM user_courses uc JOIN courses c ON uc.course_id = c.id WHERE uc.id = :id");
+    public static function find($id) {
+        $stmt = self::getConnection()->prepare("SELECT uc.*, c.status FROM user_courses uc JOIN courses c ON uc.course_id = c.id WHERE uc.id = :id");
         $stmt->execute(['id' => $id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
         return $stmt->fetch();
     }
 
     /**
-     * Save the current user course.
+     * Save the user course.
      */
     public function save() {
         if ($this->id) {
-            $stmt = $this->getConnection()->prepare("UPDATE user_courses SET course_id = :course_id, name = :name, start_date = :start_date, end_date = :end_date WHERE id = :id");
+            $stmt = self::getConnection()->prepare("UPDATE user_courses SET course_id = :course_id, name = :name, start_date = :start_date, end_date = :end_date WHERE id = :id");
             $stmt->execute([
+                'id' => $this->id,
                 'course_id' => $this->course_id,
                 'name' => $this->name,
                 'start_date' => $this->start_date,
-                'end_date' => $this->end_date,
-                'id' => $this->id
+                'end_date' => $this->end_date
             ]);
         } else {
-            $stmt = $this->getConnection()->prepare("INSERT INTO user_courses (user_id, course_id, name, start_date, end_date) VALUES (:user_id, :course_id, :name, :start_date, :end_date)");
+            $stmt = self::getConnection()->prepare("INSERT INTO user_courses (user_id, course_id, name, start_date, end_date) VALUES (:user_id, :course_id, :name, :start_date, :end_date)");
             $stmt->execute([
                 'user_id' => $this->user_id,
                 'course_id' => $this->course_id,
@@ -65,15 +63,15 @@ class UserCourse extends Model {
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date
             ]);
-            $this->id = $this->getConnection()->lastInsertId();
+            $this->id = self::getConnection()->lastInsertId();
         }
     }
 
     /**
-     * Delete the current user course.
+     * Delete the user course.
      */
     public function delete() {
-        $stmt = $this->getConnection()->prepare("DELETE FROM user_courses WHERE id = :id");
+        $stmt = self::getConnection()->prepare("DELETE FROM user_courses WHERE id = :id");
         $stmt->execute(['id' => $this->id]);
     }
 }
