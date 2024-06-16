@@ -16,6 +16,54 @@ The Swiftqueue School of High Tech is looking for a better way to manage the cou
 - `config/` - Contains configuration files.
 - `views/` - Contains the view templates.
 
+  ```bash
+  swiftqueue-dev-test/
+  ├── public/
+  │   ├── index.php               # Entry point of the application, initializes the app
+  │   ├── assets/                 # Directory for static assets
+  │       ├── js/
+  │           ├── app.js          # Custom JavaScript file
+  │       ├── css/
+  │           ├── styles.css      # Custom CSS file
+  ├── src/
+  │   ├── Controllers/
+  │       ├── CourseController.php # Controller for handling course-related requests
+  │       ├── AuthController.php   # Controller for handling authentication requests
+  │   ├── Models/
+  │       ├── Course.php          # Model representing the Course entity
+  │       ├── User.php            # Model representing the User entity
+  │   ├── Core/
+  │       ├── Router.php          # Handles routing of the application
+  │       ├── Request.php         # Handles HTTP request data
+  │       ├── Response.php        # Handles HTTP response data
+  │       ├── Database.php        # Manages the connection to the database
+  │       ├── Auth.php            # Handles user authentication
+  │       ├── Config.php          # Handles application configuration
+  │       ├── View.php            # Handles rendering of views
+  │   ├── Policies/
+  │       ├── AuthPolicy.php      # Authorization checks for authentication
+  │       ├── CoursePolicy.php    # Authorization checks for course actions
+  │   ├── routes.php              # Defines the application routes and their middlewares
+  ├── config/
+  │   ├── config.php              # General configuration file (not used with .env in this case)
+  │   ├── schema.sql              # SQL script to initialize the database schema
+  ├── views/
+  │   ├── layouts/
+  │       ├── main.php            # Main layout for the application
+  │   ├── courses/
+  │       ├── index.php           # View for listing courses
+  │       ├── create.php          # View for creating a new course
+  │       ├── edit.php            # View for editing an existing course
+  │   ├── auth/
+  │       ├── login.php           # View for user login
+  ├── database/
+  │   ├── database.sqlite         # SQLite database file (created manually)
+  ├── .env                        # Environment variables configuration
+  ├── .env.example                # Example environment variables configuration
+  ├── composer.json               # Composer dependencies and autoload configuration
+  ├── README.md                   # Project documentation and setup instructions
+  ```
+
 ## Usage
 - Visit the `/login` URL to log in.
 - Visit the `/courses` URL to see the list of courses (after logging in).
