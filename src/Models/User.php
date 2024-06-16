@@ -18,6 +18,7 @@ class User {
      * @return User|null
      */
     public static function findByUsername($username) {
+        echo "username ".$username . '<br>';
         $db = (new Database())->getConnection();
         $stmt = $db->prepare("SELECT * FROM users WHERE username = :username");
         $stmt->execute(['username' => $username]);
