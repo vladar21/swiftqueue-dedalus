@@ -38,7 +38,7 @@ class UserCourseController {
      */
     public function create(Request $request, Response $response) {
         $user_id = Auth::user()->id;
-
+echo "we in create";
         if ($request->isPost()) {
             $data = $request->getBody();
             $user_course = new UserCourse();
@@ -47,7 +47,6 @@ class UserCourseController {
             $user_course->name = $data['name'];
             $user_course->start_date = $data['start_date'];
             $user_course->end_date = $data['end_date'];
-            $user_course->status = $data['status'];
             $user_course->save();
 
             $response->redirect('/user_courses');
@@ -72,7 +71,6 @@ class UserCourseController {
             $user_course->name = $data['name'];
             $user_course->start_date = $data['start_date'];
             $user_course->end_date = $data['end_date'];
-            $user_course->status = $data['status'];
             $user_course->save();
 
             $response->redirect('/user_courses');

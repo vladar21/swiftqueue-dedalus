@@ -3,6 +3,18 @@
 <h1>Edit Course</h1>
 <form method="post" action="/user_courses/edit?id=<?php echo $course->id; ?>">
     <div>
+        <label for="course_id">Template Course</label>
+        <select name="course_id" id="course_id" required>
+            <?php foreach ($courses as $c): ?>
+                <option value="<?php echo $c->id; ?>" <?php ($c->id == $course->id ? echo "selected" : echo '') ;?>
+                ><?php
+                    echo
+                    htmlspecialchars
+                    ($c->name); ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div>
         <label for="name">Name</label>
         <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($course->name); ?>" required>
     </div>
@@ -15,11 +27,7 @@
         <input type="datetime-local" name="end_date" id="end_date" value="<?php echo htmlspecialchars($course->end_date); ?>" required>
     </div>
     <div>
-        <label for="status">Status</label>
-        <select name="status" id="status" required>
-            <option value="active" <?php if ($course->status == 'active') echo 'selected'; ?>>Active</option>
-            <option value="inactive" <?php if ($course->status == 'inactive') echo 'selected'; ?>>Inactive</option>
-        </select>
+        <p>Status: <?php echo htmlspecialchars($course->status); ?></p>
     </div>
     <div>
         <button type="submit">Update</button>

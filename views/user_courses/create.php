@@ -12,7 +12,7 @@
     </div>
     <div>
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" required>
+        <input type="text" name="name" id="name" value="1" required>
     </div>
     <div>
         <label for="start_date">Start Date</label>
@@ -21,13 +21,6 @@
     <div>
         <label for="end_date">End Date</label>
         <input type="datetime-local" name="end_date" id="end_date" required>
-    </div>
-    <div>
-        <label for="status">Status</label>
-        <select name="status" id="status" required>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-        </select>
     </div>
     <div>
         <button type="submit">Create</button>

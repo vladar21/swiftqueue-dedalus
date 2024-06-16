@@ -22,7 +22,6 @@ $user_courses = [
         'name' => 'Mathematics - Student Version',
         'start_date' => '2024-09-01 08:00:00',
         'end_date' => '2024-12-15 10:00:00',
-        'status' => 'active'
     ],
     [
         'user_id' => $users[1]->id,
@@ -30,12 +29,11 @@ $user_courses = [
         'name' => 'Physics - Guest Version',
         'start_date' => '2024-09-01 08:00:00',
         'end_date' => '2024-12-15 10:00:00',
-        'status' => 'active'
     ]
 ];
 
 foreach ($user_courses as $user_course) {
-    $stmt = $db->prepare("INSERT INTO user_courses (user_id, course_id, name, start_date, end_date, status) VALUES (:user_id, :course_id, :name, :start_date, :end_date, :status)");
+    $stmt = $db->prepare("INSERT INTO user_courses (user_id, course_id, name, start_date, end_date) VALUES (:user_id, :course_id, :name, :start_date, :end_date)");
     $stmt->execute($user_course);
 }
 

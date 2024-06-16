@@ -22,7 +22,7 @@ class UserCourse {
      */
     public static function allForUser($user_id) {
         $db = (new Database())->getConnection();
-        $stmt = $db->prepare("SELECT * FROM user_courses WHERE user_id = :user_id");
+        $stmt = $db->prepare("SELECT uc.*, c.status FROM user_courses uc JOIN courses c ON uc.course_id = c.id WHERE uc.user_id = :user_id");
         $stmt->execute(['user_id' => $user_id]);
         return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
     }
@@ -35,7 +35,7 @@ class UserCourse {
      */
     public static function find($id) {
         $db = (new Database())->getConnection();
-        $stmt = $db->prepare("SELECT * FROM user_courses WHERE id = :id");
+        $stmt = $db->prepare("SELECT uc.*, c.status FROM user_courses uc JOIN courses c ON uc.course_id = c.id WHERE uc.id = :id");
         $stmt->execute(['id' => $id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
         return $stmt->fetch();
@@ -48,23 +48,21 @@ class UserCourse {
         $db = (new Database())->getConnection();
 
         if ($this->id) {
-            $stmt = $db->prepare("UPDATE user_courses SET name = :name, start_date = :start_date, end_date = :end_date, status = :status WHERE id = :id");
+            $stmt = $db->prepare("UPDATE user_courses SET name = :name, start_date = :start_date, end_date = :end_date WHERE id = :id");
             $stmt->execute([
                 'id' => $this->id,
                 'name' => $this->name,
                 'start_date' => $this->start_date,
-                'end_date' => $this->end_date,
-                'status' => $this->status
+                'end_date' => $this->end_date
             ]);
         } else {
-            $stmt = $db->prepare("INSERT INTO user_courses (user_id, course_id, name, start_date, end_date, status) VALUES (:user_id, :course_id, :name, :start_date, :end_date, :status)");
+            $stmt = $db->prepare("INSERT INTO user_courses (user_id, course_id, name, start_date, end_date) VALUES (:user_id, :course_id, :name, :start_date, :end_date)");
             $stmt->execute([
                 'user_id' => $this->user_id,
                 'course_id' => $this->course_id,
                 'name' => $this->name,
                 'start_date' => $this->start_date,
-                'end_date' => $this->end_date,
-                'status' => $this->status
+                'end_date' => $this->end_date
             ]);
             $this->id = $db->lastInsertId();
         }
