@@ -5,29 +5,33 @@ namespace App\Core;
 use App\Models\User;
 
 class Auth {
+
     /**
-     * Attempt to log in a user.
+     * Attempt to login a user.
      *
      * @param string $username
      * @param string $password
      * @return bool
      */
     public static function login($username, $password) {
-        $user = User::findByUsername($username);
+        echo "Attempting to login user: $username<br>";
+        $user = (new User())->findByUsername($username);
         if ($user && password_verify($password, $user->password)) {
             $_SESSION['user_id'] = $user->id;
-            $_SESSION['user_role'] = $user->role;
+            echo "Login successful for user: $username<br>";
             return true;
         }
+        echo "Login failed for user: $username<br>";
         return false;
     }
 
     /**
-     * Log out the current user.
+     * Logout the user.
      */
     public static function logout() {
         unset($_SESSION['user_id']);
-        unset($_SESSION['user_role']);
+        session_destroy();
+        echo "User logged out.<br>";
     }
 
     /**
@@ -37,13 +41,13 @@ class Auth {
      */
     public static function user() {
         if (isset($_SESSION['user_id'])) {
-            return User::find($_SESSION['user_id']);
+            return (new User())->find($_SESSION['user_id']);
         }
         return null;
     }
 
     /**
-     * Check if a user is authenticated.
+     * Check if the user is authenticated.
      *
      * @return bool
      */
@@ -52,12 +56,15 @@ class Auth {
     }
 
     /**
-     * Get the role of the currently authenticated user.
+     * Get the role of the authenticated user.
      *
      * @return string|null
      */
     public static function role() {
-        return $_SESSION['user_role'] ?? null;
+        $user = self::user();
+        return $user ? $user->role : null;
     }
 }
+?>
+
 ?>

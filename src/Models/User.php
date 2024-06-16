@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
-use App\Core\Database;
 use PDO;
 
-class User {
+class User extends Model {
     public $id;
     public $username;
     public $password;
     public $role;
+
+    public function __construct() {
+        parent::__construct();
+        echo "User model instantiated.<br>";
+    }
 
     /**
      * Find a user by username.
@@ -17,10 +21,9 @@ class User {
      * @param string $username
      * @return User|null
      */
-    public static function findByUsername($username) {
-        echo "username ".$username . '<br>';
-        $db = (new Database())->getConnection();
-        $stmt = $db->prepare("SELECT * FROM users WHERE username = :username");
+    public function findByUsername($username) {
+        echo "Finding user by username: $username<br>";
+        $stmt = $this->getConnection()->prepare("SELECT * FROM users WHERE username = :username");
         $stmt->execute(['username' => $username]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
         $user = $stmt->fetch();
@@ -33,9 +36,9 @@ class User {
      *
      * @return array
      */
-    public static function all() {
-        $db = (new Database())->getConnection();
-        $stmt = $db->query("SELECT * FROM users");
+    public function all() {
+        echo "Getting all users.<br>";
+        $stmt = $this->getConnection()->query("SELECT * FROM users");
         return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 
@@ -45,9 +48,9 @@ class User {
      * @param int $id
      * @return User|null
      */
-    public static function find($id) {
-        $db = (new Database())->getConnection();
-        $stmt = $db->prepare("SELECT * FROM users WHERE id = :id");
+    public function find($id) {
+        echo "Finding user by ID: $id<br>";
+        $stmt = $this->getConnection()->prepare("SELECT * FROM users WHERE id = :id");
         $stmt->execute(['id' => $id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
         $user = $stmt->fetch();

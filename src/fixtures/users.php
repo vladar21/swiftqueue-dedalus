@@ -11,13 +11,18 @@ $db = (new Database())->getConnection();
 
 $users = [
     [
-        'username' => 'student',
-        'password' => password_hash('password', PASSWORD_BCRYPT),
+        'username' => 'student1',
+        'password' => password_hash('pass1', PASSWORD_BCRYPT),
+        'role' => 'student'
+    ],
+    [
+        'username' => 'student2',
+        'password' => password_hash('pass2', PASSWORD_BCRYPT),
         'role' => 'student'
     ],
     [
         'username' => 'guest',
-        'password' => password_hash('password', PASSWORD_BCRYPT),
+        'password' => password_hash('pass', PASSWORD_BCRYPT),
         'role' => 'guest'
     ]
 ];

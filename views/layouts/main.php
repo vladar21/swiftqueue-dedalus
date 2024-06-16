@@ -3,31 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?? 'Swiftqueue School' ?></title>
-    <link rel="stylesheet" href="/public/assets/css/styles.css">
+    <title><?php echo $title ?? 'Course Management'; ?></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-<header>
-    <nav>
-        <ul>
-            <li><a href="/courses">Courses</a></li>
-            <?php if (\App\Core\Auth::check()): ?>
-                <li><a href="/logout">Logout</a></li>
+<body class="bg-gray-100">
+
+<nav class="bg-white shadow-md p-4 mb-6">
+    <div class="container mx-auto">
+        <a href="/" class="text-xl font-bold">Course Management</a>
+        <div class="float-right">
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="/logout" class="ml-4 text-blue-500">Logout</a>
             <?php else: ?>
-                <li><a href="/login">Login</a></li>
+                <a href="/login" class="ml-4 text-blue-500">Login</a>
             <?php endif; ?>
-        </ul>
-    </nav>
-</header>
+        </div>
+    </div>
+</nav>
 
 <main>
-    <?php if (isset($content)) echo $content; ?>
+    <?php echo $content; ?>
 </main>
 
-<footer>
-    <p>&copy; 2024 Swiftqueue School of High Tech</p>
-</footer>
-
-<script src="/public/assets/js/app.js"></script>
 </body>
 </html>

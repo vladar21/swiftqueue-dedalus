@@ -15,7 +15,7 @@ class CourseController extends BaseController {
      * @param Response $response
      */
     public function index(Request $request, Response $response) {
-        $courses = Course::all();
+        $courses = (new Course())->all();
         $response->view('courses/index', ['courses' => $courses]);
     }
 
@@ -49,7 +49,7 @@ class CourseController extends BaseController {
      */
     public function edit(Request $request, Response $response) {
         $id = $request->getParam('id');
-        $course = Course::find($id);
+        $course = (new Course())->find($id);
 
         if ($request->isPost()) {
             $data = $request->getBody();
@@ -73,7 +73,7 @@ class CourseController extends BaseController {
      */
     public function delete(Request $request, Response $response) {
         $id = $request->getBody()['id'];
-        $course = Course::find($id);
+        $course = (new Course())->find($id);
 
         if ($course) {
             $course->delete();

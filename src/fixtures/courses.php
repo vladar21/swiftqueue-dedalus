@@ -18,6 +18,14 @@ $courses = [
     [
         'name' => 'Advanced JavaScript',
         'status' => 'inactive'
+    ],
+    [
+        'name' => 'Node.js for Beginners',
+        'status' => 'active'
+    ],
+    [
+        'name' => 'TailwindCSS and JavaScript',
+        'status' => 'inactive'
     ]
 ];
 

@@ -4,7 +4,8 @@
   "type": "project",
   "require": {
     "php": "^7.4",
-    "vlucas/phpdotenv": "^5.4"
+    "vlucas/phpdotenv": "^5.4",
+    "ext-pdo": "*"
   },
   "autoload": {
     "psr-4": {

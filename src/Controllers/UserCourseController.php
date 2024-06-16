@@ -19,7 +19,7 @@ class UserCourseController extends BaseController {
     public function index(Request $request, Response $response) {
         $user_id = Auth::user()->id;
         $status = $request->getParam('status');
-        $user_courses = UserCourse::allForUser($user_id);
+        $user_courses = (new UserCourse())->allForUser($user_id);
 
         if ($status) {
             $user_courses = array_filter($user_courses, function ($course) use ($status) {
@@ -38,7 +38,7 @@ class UserCourseController extends BaseController {
      */
     public function create(Request $request, Response $response) {
         $user_id = Auth::user()->id;
-echo "we in create";
+
         if ($request->isPost()) {
             $data = $request->getBody();
             $user_course = new UserCourse();
@@ -51,7 +51,7 @@ echo "we in create";
 
             $response->redirect('/user_courses');
         } else {
-            $courses = Course::all(); // Get the template courses
+            $courses = (new Course())->all(); // Get the template courses
             $response->view('user_courses/create', ['courses' => $courses]);
         }
     }
@@ -64,7 +64,7 @@ echo "we in create";
      */
     public function edit(Request $request, Response $response) {
         $id = $request->getParam('id');
-        $user_course = UserCourse::find($id);
+        $user_course = (new UserCourse())->find($id);
 
         if ($request->isPost()) {
             $data = $request->getBody();
@@ -75,7 +75,8 @@ echo "we in create";
 
             $response->redirect('/user_courses');
         } else {
-            $response->view('user_courses/edit', ['course' => $user_course]);
+            $courses = (new Course())->all(); // Get the template courses
+            $response->view('user_courses/edit', ['course' => $user_course, 'courses' => $courses]);
         }
     }
 
@@ -87,7 +88,7 @@ echo "we in create";
      */
     public function delete(Request $request, Response $response) {
         $id = $request->getBody()['id'];
-        $user_course = UserCourse::find($id);
+        $user_course = (new UserCourse())->find($id);
 
         if ($user_course) {
             $user_course->delete();
