@@ -23,7 +23,7 @@ class CoursePolicy {
      */
     public static function create(Request $request) {
         self::isAuthenticated($request);
-        self::isAuthorized($request, ['admin']);
+        self::isAuthorized($request, ['student']);
     }
 
     /**
@@ -33,7 +33,7 @@ class CoursePolicy {
      */
     public static function edit(Request $request) {
         self::isAuthenticated($request);
-        self::isAuthorized($request, ['admin']);
+        self::isAuthorized($request, ['student']);
     }
 
     /**
@@ -43,7 +43,7 @@ class CoursePolicy {
      */
     public static function delete(Request $request) {
         self::isAuthenticated($request);
-        self::isAuthorized($request, ['admin']);
+        self::isAuthorized($request, ['student']);
     }
 
     /**

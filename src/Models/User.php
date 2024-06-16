@@ -43,5 +43,14 @@ class User {
         echo "User found by ID: " . ($user ? $user->username : 'none') . "<br>";
         return $user;
     }
+
+    /**
+     * Get the role of the user.
+     *
+     * @return string
+     */
+    public function getRole() {
+        return $this->role;
+    }
 }
 ?>

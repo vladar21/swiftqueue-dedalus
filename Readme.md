@@ -21,10 +21,6 @@ The Swiftqueue School of High Tech is looking for a better way to manage the cou
     php src/fixtures/courses.php
     ```
 ## Directory Structure
-- `src/` - Contains the source code (models, controllers, core classes for routing, request handling, database connection, and authentication).
-- `public/` - Contains the public files (index.php, assets).
-- `config/` - Contains configuration files.
-- `views/` - Contains the view templates.
 
   ```sh
   swiftqueue-dev-test/
